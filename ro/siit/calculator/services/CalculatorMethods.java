@@ -9,7 +9,7 @@ public class CalculatorMethods {
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(TextDecorationsEnum.TEXT_RED_BOLD + "Numar incorect!" + TextDecorationsEnum.TEXT_RESET);
+            throw new IllegalArgumentException(TextDecorationsEnum.TEXT_RED_BOLD + "Numar incorect (" + number + ")!" + TextDecorationsEnum.TEXT_RESET);
         }
     }
     public static boolean checkIsNumber(String number) {

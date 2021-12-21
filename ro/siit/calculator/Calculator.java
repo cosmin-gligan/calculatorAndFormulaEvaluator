@@ -66,8 +66,41 @@ public class Calculator {
                 result = CalculatorMethods.numberToThePower(firstNumber, secondNumber);
                 break;
         }
+
+//        System.out.println("calc evaluate: " + firstNumber + " " + operation.toString() + " " + secondNumber + " = " + result);
+
         return result;
     }
+    //metoda speciala pt. formula Evaluator, avem numerele inversate din cauza stack-ului
+    public static int compute4FormulaEvaluator(int secondNumber, OperationsEnum operation, int firstNumber ) {
+        int result = 0;
+
+        switch (operation) {
+            case PLUS:
+                result = CalculatorMethods.addNumbers(firstNumber, secondNumber);
+                break;
+            case MINUS:
+                result = CalculatorMethods.substractNumbers(firstNumber, secondNumber);
+                break;
+            case DIVIDE:
+                result = CalculatorMethods.divideNumbers(firstNumber, secondNumber) ;
+                break;
+            case MULTIPLY:
+                result = CalculatorMethods.multiplyNumbers(firstNumber, secondNumber );
+                break;
+            case REMAINDER:
+                result = CalculatorMethods.remainderOfDivision(firstNumber, secondNumber);
+                break;
+            case POWER:
+                result = CalculatorMethods.numberToThePower(firstNumber, secondNumber );
+                break;
+        }
+
+        System.out.println("evaluated formula is : " + firstNumber + " " + operation.toString() + " " + secondNumber + " = " + result);
+
+        return result;
+    }
+
 
     public static void print(Integer firstNumber, OperationsEnum op, Integer secondNumber, Integer result) {
         System.out.println(TextDecorationsEnum.TEXT_BLUE.toString() + firstNumber + " " + TextDecorationsEnum.TEXT_YELLOW + op.getVerb() + " " + TextDecorationsEnum.TEXT_MAGENTA + secondNumber + TextDecorationsEnum.TEXT_CYAN + " = " + TextDecorationsEnum.TEXT_GREEN + result + TextDecorationsEnum.TEXT_RESET);
