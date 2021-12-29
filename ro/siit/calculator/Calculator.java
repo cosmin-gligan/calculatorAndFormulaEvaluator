@@ -72,7 +72,7 @@ public class Calculator {
         return result;
     }
     //metoda speciala pt. formula Evaluator, avem numerele inversate din cauza stack-ului
-    public static int compute4FormulaEvaluator(int secondNumber, OperationsEnum operation, int firstNumber ) {
+    public static int compute4FormulaEvaluator(int secondNumber, OperationsEnum operation, int firstNumber ) throws IllegalArgumentException {
         int result = 0;
 
         switch (operation) {
@@ -96,7 +96,7 @@ public class Calculator {
                 break;
         }
 
-        System.out.println("evaluated formula is : " + firstNumber + " " + operation.toString() + " " + secondNumber + " = " + result);
+        System.out.println("Formula evaluata este : " + firstNumber + " " + operation.toString() + " " + secondNumber + " = " + result);
 
         return result;
     }

@@ -15,7 +15,8 @@ public class FormulaEvaluator {
             //inlocuim spatiile goale
             formulaIntrodusa = formulaIntrodusa.replaceAll("\\s+","");
 
-            System.out.println(evaluateFormula(formulaIntrodusa));
+            int result = evaluateFormula(formulaIntrodusa);
+            System.out.println("Rezultatul final este: " + result);
 
         } catch ( RuntimeException e) {
             System.out.println(e.getMessage());
@@ -31,6 +32,7 @@ public class FormulaEvaluator {
         Stack<Character> operations = new Stack<Character>();
 
         for (int i = 0; i < tokens.length; i++) {
+            //cautam numere din formula, le completam in stack
             if (tokens[i] >= '0' && tokens[i] <= '9') {
                 StringBuilder sb = new StringBuilder();
                 while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9') {
@@ -44,6 +46,7 @@ public class FormulaEvaluator {
                 if ( sb.length() > 0)
                     numbers.push(CalculatorMethods.string2Number(sb.toString()));
             }
+            //cautam operatori in formula
             if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/') {
                 while (!operations.empty() && hasPrecedence(tokens[i], operations.peek())) {
                     numbers.push(Calculator.compute4FormulaEvaluator(numbers.pop(), CalculatorMethods.getOperation(String.valueOf(operations.pop())), numbers.pop()));
@@ -53,9 +56,13 @@ public class FormulaEvaluator {
         }
 
         while(!operations.empty()){
-            numbers.push(Calculator.compute4FormulaEvaluator(numbers.pop(), CalculatorMethods.getOperation(String.valueOf(operations.pop())), numbers.pop()));
+            //stack-ul de numere trebuie sa aiba o marime divizibila cu 2, altfel formula este gresita
+            if ( numbers.size() % 2 == 0 ) {
+                numbers.push(Calculator.compute4FormulaEvaluator(numbers.pop(), CalculatorMethods.getOperation(String.valueOf(operations.pop())), numbers.pop()));
+            } else {
+                throw new IllegalArgumentException("\nFormula este INCORECTA: " + numbers.pop() + " " + String.valueOf(operations.pop()) + " !\nUltimul caracter din formula trebuie sa fie un NUMAR!");
+            }
         }
-
         return numbers.pop();
     }
 
